@@ -23,20 +23,42 @@ public class user {
         return id;
     }
 
+    public void setid(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setname(String name) {
+        this.name = name;
     }
 
     public String getpssword() {
         return password;
     }
 
-    public String phone() {
+    public void setpassword(String password) {
+        this.password = password;
+    }
+
+    public String getphone() {
         return phone;
     }
 
-    public String enddate() {
+    public void setphone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getenddate() {
         return enddate;
     }
 
+    public void setenddate(String enddate) {
+        this.enddate = enddate;
+    }
+
+    public user() {
+    }
 }
