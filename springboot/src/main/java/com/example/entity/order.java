@@ -6,18 +6,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name = "user")
-public class user {
-
+@Table(name = "order")
+public class order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int orderid;
+
     private int id;
 
     @Column(name = "name")
     private String name;
     private String password;
-    private String phone;
-    private String enddate;
+    private String purchaseDate;
+    private int payornot;
+
+    public int getorderid() {
+        return orderid;
+    }
+
+    public void setorderid(int orderid) {
+        this.orderid = orderid;
+    }
 
     public int getid() {
         return id;
@@ -43,22 +52,22 @@ public class user {
         this.password = password;
     }
 
-    public String getphone() {
-        return phone;
+    public String getpurchaseDate() {
+        return purchaseDate;
     }
 
-    public void setphone(String phone) {
-        this.phone = phone;
+    public void setpurchaseDate(String purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
-    public String getenddate() {
-        return enddate;
+    public int getpayornot() {
+        return payornot;
     }
 
-    public void setenddate(String enddate) {
-        this.enddate = enddate;
+    public void setpayornot(int payornot) {
+        this.payornot = payornot;
     }
 
-    public user() {
+    public order() {
     }
 }

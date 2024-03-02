@@ -6,8 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import net.sf.json.JSONObject;
 
 @Repository
@@ -33,7 +31,32 @@ public class UserDao {
         } catch (Exception e) {
             return null;
         }
+    }
 
+    public Map<String, Object> getuserbyid(int id) {
+        String sql = "SELECT * FROM user WHERE id LIKE\'" +
+                id +
+                "\';";
+        try {
+            Map<String, Object> map = jdbcTemplate.queryForMap(sql);
+            return map;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public String changeenddatebyid(int id, String enddate) {
+        String sql = "UPDATE user \n SET enddate = \'" +
+                enddate +
+                "\' \n WHERE id = \'" +
+                id +
+                "\';";
+        try {
+            jdbcTemplate.update(sql);
+            return "修改成功";
+        } catch (Exception e) {
+            return "修改失败";
+        }
     }
 
     public String addoneusers(JSONObject json) {
