@@ -14,9 +14,8 @@ public class order {
 
     private int id;
 
-    @Column(name = "name")
-    private String name;
-    private String password;
+    private String price;
+    private String days;
     private String purchaseDate;
     private int payornot;
 
@@ -36,20 +35,20 @@ public class order {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getprice() {
+        return price;
     }
 
-    public void setname(String name) {
-        this.name = name;
+    public void setprice(String price) {
+        this.price = price;
     }
 
-    public String getpssword() {
-        return password;
+    public String getdays() {
+        return days;
     }
 
-    public void setpassword(String password) {
-        this.password = password;
+    public void setdays(String days) {
+        this.days = days;
     }
 
     public String getpurchaseDate() {

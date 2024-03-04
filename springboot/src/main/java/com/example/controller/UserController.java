@@ -18,7 +18,7 @@ import com.example.others.Result;
 import com.example.service.UserService;
 
 @RestController
-@RequestMapping("/request1")
+@RequestMapping("/userrequest")
 @SpringBootApplication
 public class UserController {
 

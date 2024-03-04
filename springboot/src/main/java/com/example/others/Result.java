@@ -1,5 +1,6 @@
 package com.example.others;
 
+//是一个备用选项，目前没有作用，如果在项目结束时依然没有作用，请删除该文件
 public class Result {
 
     private static final String SUCCESS = "0";
