@@ -1,13 +1,12 @@
 package com.example.entity;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table(name = "order")
-public class order {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderid;
@@ -67,6 +66,6 @@ public class order {
         this.payornot = payornot;
     }
 
-    public order() {
+    public Order() {
     }
 }
