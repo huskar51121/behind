@@ -7,6 +7,7 @@ import java.util.Map;
 import net.sf.json.JSONObject;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,27 +51,35 @@ public class UserController {
 
 	// 这是用来登录的，输入用户名和密码，会返回“该用户不存在”，“密码错误”，“登录成功”
 	@PostMapping("/login")
-	String login(String username, String password) {
-		// 在参数出现后删除下面这两行
-		System.out.printf("786113\n");
-		String other = "";
-		System.out.printf(other);
-		System.out.printf("786110\n");
-		System.out.println(password);
-		if (username == null) {
-			System.out.printf("786111\n");
+	ResponseEntity<String> login(String username, String password) {
+		try {
+			String result = userservice.login(username, password);
+			if (result == "登录成功") {
+				String obj = UserService.createToken(username);
+				System.out.println(ResponseEntity.ok(obj));
+				System.out.println("6543\n");
+				return ResponseEntity.ok(obj);
+			} else {
+				return ResponseEntity.ok(result);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body("登录失败：" + e.getMessage());
 		}
-
-		return userservice.login(username, password);
 
 	}
 
 	// 这是页面用来获取用户信息的，输入用户名，会返回该用户的所有信息，如果没有则返回null，类型是map，返回到网页中会自动变为json
-	@GetMapping("/afterlogin")
-	Map<String, Object> getuserbyname() {
+	@PostMapping("/afterlogin")
+	ResponseEntity<Map<String, Object>> getuserbytoken(String token) {
 		// 在参数出现后删除下面这一行
-		String name = "huskar";
-		return userservice.getuserbyname(name);
-	}
+		System.out.println(token);
+		System.out.println("6743\n");
+		String name = UserService.deToken(token);
 
+		if (name == "验证失败") {
+			return ResponseEntity.badRequest().build();
+		} else {
+			return ResponseEntity.ok(userservice.getuserbyname(name));
+		}
+	}
 }
