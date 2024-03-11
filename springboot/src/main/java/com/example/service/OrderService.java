@@ -15,27 +15,27 @@ public class OrderService {
     @Autowired
     private OrderDao orderDao;
 
-    //获取所有订单
+    // 获取所有订单
     public List<Map<String, Object>> getAllOrders() {
         return orderDao.getallorders();
     }
 
-    //通过用户ID获取所有订单
+    // 通过用户ID获取所有订单
     public List<Map<String, Object>> getAllOrdersById(int id) {
         return orderDao.getallordersbyid(id);
     }
 
-    //通过订单名称获取订单
+    // 通过订单名称获取订单
     public Map<String, Object> getOrderByOrderName(String name) {
         return orderDao.getorderbyorderid(name);
     }
 
-    //通过订单ID进行支付更新
+    // 通过订单ID进行支付更新
     public String payOrderByOrderId(int orderid) {
         return orderDao.paybyorderid(orderid);
     }
 
-    //添加一个新订单
+    // 添加一个新订单
     public String addOneOrder(JSONObject json) {
         // 在创建新订单前，需要先将JSONObject转换为order实体类，并填充所有必要信息
         if (json == null) {

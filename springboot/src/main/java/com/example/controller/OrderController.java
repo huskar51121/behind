@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.time.LocalDate;
 import net.sf.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class OrderController {
     }
 
     // 获取所有订单
-    @GetMapping("/all")
+    @PostMapping("/all")
     public ResponseEntity<List<Map<String, Object>>> getAllOrders() {
         try {
             List<Map<String, Object>> orders = orderService.getAllOrders();
@@ -31,18 +32,16 @@ public class OrderController {
     }
 
     // 根据用户ID获取所有订单
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Map<String, Object>>> getAllOrdersByUserId(@PathVariable("userId") int userId) {
-        try {
-            List<Map<String, Object>> orders = orderService.getAllOrdersById(userId);
-            return ResponseEntity.ok(orders);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+    @PostMapping("/user/myOrder")
+    public ResponseEntity<List<Map<String, Object>>> getAllOrdersByUserId(String idData) {
+
+        List<Map<String, Object>> orders = orderService.getAllOrdersById(Integer.parseInt(idData));
+        return ResponseEntity.ok(orders);
+
     }
 
     // 通过订单名称获取订单
-    @GetMapping("/name/{orderName}")
+    @PostMapping("/name/{orderName}")
     public ResponseEntity<Map<String, Object>> getOrderByOrderName(@PathVariable("orderName") String orderName) {
         try {
             Map<String, Object> order = orderService.getOrderByOrderName(orderName);
@@ -65,12 +64,14 @@ public class OrderController {
 
     // 添加一个新订单
     @PostMapping("/add")
-    public ResponseEntity<String> addOneOrder(@RequestBody JSONObject orderData) {
-        try {
-            String result = orderService.addOneOrder(orderData);
-            return ResponseEntity.ok(result);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("添加订单失败：" + e.getMessage());
-        }
+    public ResponseEntity<String> addOneOrder(String time, String price, String userid) {
+        JSONObject json = new JSONObject();
+        json = new JSONObject();
+        json.put("days", time);
+        json.put("price", price);
+        json.put("id", Integer.parseInt(userid));
+        json.put("purchaseDate", LocalDate.now().toString());
+        String result = orderService.addOneOrder(json);
+        return ResponseEntity.ok(result);
     }
 }

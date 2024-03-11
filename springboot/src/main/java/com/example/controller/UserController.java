@@ -31,7 +31,7 @@ public class UserController {
 
 	// 这是用来注册的,输入注册信息，成功则返回“创建成功”，失败则返回"该用户已存在"
 	@PostMapping("/register")
-	String addoneusers(String username, String password) {
+	String addoneusers(String username, String password, String mobile) {
 		System.out.printf(LocalDate.now().toString());
 		System.out.printf("786112605\n");
 		// 这里暂时假装收到了一个来自前端的注册信息,之后要通过该函数的参数传入这个json
@@ -39,12 +39,12 @@ public class UserController {
 		json = new JSONObject();
 		json.put("name", username);
 		json.put("password", password);
-		json.put("phone", "12345");
+		json.put("phone", mobile);
 		return userservice.addoneusers(json);
 	}
 
 	// 这是管理员用来查看所有用户的，返回一个list，返回到网页中会自动变为json
-	@GetMapping("/getallusers")
+	@PostMapping("/getallusers")
 	List<Map<String, Object>> getallusers() {
 		return userservice.getallusers();
 	}
@@ -72,6 +72,9 @@ public class UserController {
 	@PostMapping("/afterlogin")
 	ResponseEntity<Map<String, Object>> getuserbytoken(String token) {
 		// 在参数出现后删除下面这一行
+		if (token == null) {
+			return ResponseEntity.badRequest().build();
+		}
 		System.out.println(token);
 		System.out.println("6743\n");
 		String name = UserService.deToken(token);

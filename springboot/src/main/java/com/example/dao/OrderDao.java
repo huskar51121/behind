@@ -15,7 +15,7 @@ public class OrderDao {
 
     public List<Map<String, Object>> getallorders() {
 
-        String sql = "select * from user";
+        String sql = "select * from `order`";
         List<Map<String, Object>> list_map = jdbcTemplate.queryForList(sql);
         return list_map;
 
@@ -23,7 +23,7 @@ public class OrderDao {
 
     public List<Map<String, Object>> getallordersbyid(int id) {
 
-        String sql = "select * from user WHERE id LIKE\'" +
+        String sql = "select * from `order` WHERE id LIKE \'" +
                 id +
                 "\';";
         List<Map<String, Object>> list_map = jdbcTemplate.queryForList(sql);
@@ -32,7 +32,7 @@ public class OrderDao {
     }
 
     public Map<String, Object> getorderbyorderid(String name) {
-        String sql = "SELECT * FROM order WHERE name LIKE\'" +
+        String sql = "SELECT * FROM `order` WHERE name LIKE\'" +
                 name +
                 "\';";
         try {
@@ -44,7 +44,7 @@ public class OrderDao {
     }
 
     public String paybyorderid(int orderid) {
-        String sql = "UPDATE order \n SET payornot = \'1\' \n WHERE orderid = \'" +
+        String sql = "UPDATE `order` \n SET payornot = \'1\' \n WHERE orderid = \'" +
                 orderid +
                 "\';";
         try {
@@ -56,11 +56,11 @@ public class OrderDao {
     }
 
     public String addoneorder(JSONObject json) {
-        String sql = "insert into user(name,password,phone,payornot) values (\'" +
-                json.get("name") + "\',\'" +
-                json.get("password") + "\',\'" +
-                json.get("phone") + "\',\'" +
-                json.get("enddate") + "\'" +
+        String sql = "insert into `order`(id,price,days,purchaseDate,payornot) values (\'" +
+                json.get("id") + "\',\'" +
+                json.get("price") + "\',\'" +
+                json.get("days") + "\',\'" +
+                json.get("purchaseDate") + "\',\'" +
                 "0" + "\'" + // 0 表示未支付
                 ");";
         jdbcTemplate.update(sql);
